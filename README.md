@@ -120,7 +120,6 @@ O sistema oferece diversos relatórios pré-configurados:
 - **SGBD**: MySQL
 - **Linguagem**: SQL
 - **Modelagem**: Diagrama Entidade-Relacionamento (ER)
-- **Ferramentas**: Scripts SQL para automação
 
 ## 📈 Possíveis Extensões
 
@@ -139,9 +138,11 @@ O sistema oferece diversos relatórios pré-configurados:
 4. Push para a branch (`git push origin feature/AmazingFeature`)
 5. Abra um Pull Request
 
-## 📝 Licença
+## 👥 Equipe de Desenvolvimento
 
-Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
+- **Lucas Vinicius**
+- **Renan Souza**  
+- **Vitória Barboza**
 
 ## ✨ Créditos
 
@@ -154,3 +155,4 @@ Desenvolvido como projeto acadêmico para demonstrar conceitos de:
 
 ---
 *Sistema desenvolvido para fins educacionais - Escola de Música SENAC* 🎵
+
