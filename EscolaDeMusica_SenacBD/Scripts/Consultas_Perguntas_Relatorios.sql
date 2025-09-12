@@ -2,6 +2,8 @@
 -- CONSULTAS ÚTEIS
 -- ========================================
 
+USE EscolaDeMusica;
+
 -- Artistas que tocam mais de um instrumento
 SELECT a.nome, COUNT(t.idInstrumento) AS total_instrumentos,
        GROUP_CONCAT(i.nomeInstrumento) AS instrumentos

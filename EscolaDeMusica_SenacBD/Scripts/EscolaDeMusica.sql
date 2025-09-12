@@ -10,6 +10,8 @@ USE EscolaDeMusica;
 -- CRIAÇÃO DAS TABELAS
 -- ========================================
 
+
+
 -- Tabela Orquestras
 CREATE TABLE Orquestras (
     idOrquestra INT AUTO_INCREMENT PRIMARY KEY,
@@ -20,6 +22,7 @@ CREATE TABLE Orquestras (
     telefone VARCHAR(20),
     INDEX idx_cidade (cidade)
 );
+
 
 -- Tabela Artistas (renomeada de Musicos)
 CREATE TABLE Artistas (
@@ -33,13 +36,16 @@ CREATE TABLE Artistas (
     FOREIGN KEY(idOrquestra) REFERENCES Orquestras (idOrquestra) ON DELETE SET NULL
 );
 
+
 -- Tabela Instrumentos
 CREATE TABLE Instrumentos (
     idInstrumento INT AUTO_INCREMENT PRIMARY KEY,
     nomeInstrumento ENUM(
         'flauta','oboe','clarinete','violino','viola',
         'violoncelo','contrabaixo','trompa','trompete',
-        'trombone','tuba','harpa','piano','saxofone'
+        'trombone','tuba','harpa','piano','saxofone',
+        'guitarra','bateria','teclado','fagote',
+        'cavaquinho','bandolim'
     ) NOT NULL UNIQUE
 );
 
@@ -47,9 +53,25 @@ CREATE TABLE Instrumentos (
 CREATE TABLE FuncoesDosMusicos (
     idFuncao INT AUTO_INCREMENT PRIMARY KEY,
     nomeFuncao ENUM(
-        'maestro', 'flautista', 'violinista', 'violista', 'violoncelista',
-        'contrabaixista', 'trompista', 'trompetista', 'trombonista',
-        'tubista', 'harpaista', 'pianista', 'saxofonista'
+        'maestro',
+        'flautista',
+        'violinista',
+        'violista',
+        'violoncelista',
+        'contrabaixista',
+        'trompista',
+        'trompetista',
+        'trombonista',
+        'tubista',
+        'harpaista',
+        'pianista',
+        'saxofonista',
+        'oboísta',
+        'clarinetista',
+        'guitarrista',
+        'baterista',
+        'tecladista',
+        'fagotista'
     ) NOT NULL UNIQUE
 );
 
