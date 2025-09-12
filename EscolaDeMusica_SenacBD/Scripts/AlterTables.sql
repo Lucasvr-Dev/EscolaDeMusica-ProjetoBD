@@ -1,3 +1,5 @@
+use EscolaDeMusica;
+
 ALTER TABLE Musicos RENAME TO Artistas;
 
 ALTER TABLE Artistas ADD COLUMN email VARCHAR(100);
@@ -18,9 +20,9 @@ ALTER TABLE Instrumentos MODIFY COLUMN nomeInstrumento ENUM(
         'trombone','tuba','harpa','piano','saxofone'
 ) NOT NULL;
 
-ALTER TABLE Atuam ADD COLUMN dataFim DATE;
+ALTER TABLE Desempenham ADD COLUMN dataFim DATE;
 
-ALTER TABLE Atuam CHANGE COLUMN dataAssumiu dataInicio DATE;
+ALTER TABLE Desempenham ADD COLUMN dataAssumiu DATE;
 
 ALTER TABLE FuncoesDosMusicos
 MODIFY COLUMN nomeFuncao ENUM(
