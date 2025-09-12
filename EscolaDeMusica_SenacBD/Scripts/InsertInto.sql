@@ -1,9 +1,9 @@
 
 
-USE EscolaMusica;
+USE EscolaDeMusica;
 
 
-INSERT INTO Orquestras (nome, cidade, pais, dataCriacao) VALUES
+INSERT INTO Orquestras (nome, cidade, pais, dataFundacao) VALUES
 ('Orquestra Sinfônica de Recife', 'Recife', 'Brasil', '1990-03-15'),
 ('Orquestra Filarmônica de São Paulo', 'São Paulo', 'Brasil', '1985-05-10'),
 ('Orquestra Sinfônica do Rio', 'Rio de Janeiro', 'Brasil', '1978-07-22'),
