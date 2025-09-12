@@ -1,40 +1,58 @@
+-- ====================================
+-- SCRIPTS DE UPDATE/DELETE (DML) 
+-- ====================================
 
-UPDATE Musicos SET nome = 'João Silva Neto' WHERE idMusico = 1;
+USE EscolaDeMusica;
 
-UPDATE Orquestras SET cidade = 'Recife Antigo' WHERE idOrquestra = 1;
+-- UPDATEs 
+UPDATE Artistas SET salario = 5500.00 WHERE idMusico = 1;
+UPDATE Artistas SET salario = 4800.00 WHERE idMusico = 2;
+UPDATE Artistas SET salario = 5200.00 WHERE idMusico = 3;
+UPDATE Artistas SET status = 'licenca' WHERE idMusico = 4;
+UPDATE Artistas SET telefone = '(81) 98888-1234' WHERE idMusico = 1;
+UPDATE Artistas SET telefone = '(11) 97777-5678' WHERE idMusico = 2;
+UPDATE Artistas SET endereco = 'Rua Nova, 999' WHERE idMusico = 5;
+UPDATE Artistas SET endereco = 'Av. Principal, 123' WHERE idMusico = 6;
 
-UPDATE Tocam SET idInstrumento = 14 WHERE idMusico = 3; -- muda para piano
+UPDATE Orquestras SET status = 'suspenso' WHERE idOrquestra = 19;
+UPDATE Orquestras SET telefone = '(81) 3421-8888' WHERE idOrquestra = 1;
+UPDATE Orquestras SET email = 'novo@email.com' WHERE idOrquestra = 2;
+UPDATE Orquestras SET status = 'ativa' WHERE idOrquestra = 3;
 
-UPDATE Atuam SET idFuncao = 15 WHERE idMusico = 5 AND idSinfonia = 5;
+UPDATE Sinfonias SET dificuldade = 'muito_alta' WHERE idSinfonia = 6;
+UPDATE Sinfonias SET generoMusical = 'Clássico Tardio' WHERE idSinfonia = 1;
+UPDATE Sinfonias SET duracao = '00:35:00' WHERE idSinfonia = 2;
+UPDATE Sinfonias SET dificuldade = 'alta' WHERE idSinfonia = 3;
 
-UPDATE Atuam SET dataInicio = '2023-02-01' WHERE idMusico = 2 AND idSinfonia = 2;
+UPDATE Instrumentos SET preco = 2800.00 WHERE idInstrumento = 1;
+UPDATE Instrumentos SET categoria = 'Sopros de Madeira' WHERE idInstrumento = 1;
+UPDATE Instrumentos SET categoria = 'Sopros de Madeira' WHERE idInstrumento = 2;
+UPDATE Instrumentos SET preco = 3200.00 WHERE idInstrumento = 3;
 
-UPDATE Sinfonias SET compositor = 'Johann Sebastian Bach' WHERE idSinfonia = 3;
+UPDATE FuncoesDosMusicos SET salarioBase = 16000.00 WHERE idFuncao = 1;
+UPDATE FuncoesDosMusicos SET salarioBase = 4800.00 WHERE idFuncao = 2;
+UPDATE FuncoesDosMusicos SET salarioBase = 5200.00 WHERE idFuncao = 3;
 
-UPDATE Atuam SET idInstrumento = 16 WHERE idMusico = 7 AND idSinfonia = 7;
+UPDATE Executam SET numeroApresentacoes = 6 WHERE idSinfonia = 1 AND idOrquestra = 1;
+UPDATE Executam SET numeroApresentacoes = 4 WHERE idSinfonia = 2 AND idOrquestra = 2;
+UPDATE Executam SET dataEstreia = '2023-02-01' WHERE idSinfonia = 1 AND idOrquestra = 2;
 
-UPDATE Orquestras SET nome = 'Orquestra Sinfônica Recife Centro' WHERE idOrquestra = 1;
+UPDATE Tocam SET nivelProficiencia = 'expert' WHERE idMusico = 1 AND idInstrumento = 4;
+UPDATE Tocam SET nivelProficiencia = 'expert' WHERE idMusico = 5 AND idInstrumento = 7;
+UPDATE Tocam SET nivelProficiencia = 'expert' WHERE idMusico = 8 AND idInstrumento = 12;
 
-UPDATE Musicos SET nacionalidade = 'Portugal' WHERE idMusico = 4;
+UPDATE Atuam SET avaliacaoDesempenho = 'excelente' WHERE idMusico = 1 AND idSinfonia = 1 AND idFuncao = 3;
+UPDATE Atuam SET avaliacaoDesempenho = 'otimo' WHERE idMusico = 2 AND idSinfonia = 1 AND idFuncao = 3;
 
-UPDATE FuncoesDosMusicos SET nomeFuncao = 'Maestro Assistente' WHERE idFuncao = 1;
+UPDATE Desempenham SET observacoes = 'Músico destacado' WHERE idMusico = 10 AND idFuncao = 1;
+UPDATE Desempenham SET observacoes = 'Primeira violino' WHERE idMusico = 1 AND idFuncao = 3;
 
-DELETE FROM Musicos WHERE idMusico = 20;
+-- DELETEs 
+DELETE FROM Tocam WHERE idMusico = 10 AND idInstrumento = 3;
+DELETE FROM Tocam WHERE idMusico = 9 AND idInstrumento = 8;
 
-DELETE FROM Atuam WHERE idMusico = 19 AND idSinfonia = 19;
+DELETE FROM Atuam WHERE idMusico = 10 AND idSinfonia = 10 AND idFuncao = 1;
 
-DELETE FROM Instrumentos WHERE idInstrumento = 20;
+DELETE FROM Executam WHERE idSinfonia = 10 AND idOrquestra = 1;
 
-DELETE FROM Orquestras WHERE idOrquestra = 10;
-
-DELETE FROM FuncoesDosMusicos WHERE idFuncao = 20;
-
-DELETE FROM Sinfonias WHERE idSinfonia = 20;
-
-UPDATE Sinfonias SET dataComposicao = '1825-06-15' WHERE idSinfonia = 5;
-
-UPDATE Tocam SET idInstrumento = 12 WHERE idMusico = 6;
-
-DELETE FROM Atuam WHERE idMusico = 8;
-
-DELETE FROM Atuam WHERE idSinfonia = 4;
+DELETE FROM Desempenham WHERE idMusico = 1 AND idFuncao = 12;
