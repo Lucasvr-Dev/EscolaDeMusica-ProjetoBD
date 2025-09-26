@@ -12,12 +12,19 @@ JOIN Tocam t ON a.idMusico = t.idMusico
 JOIN Instrumentos i ON t.idInstrumento = i.idInstrumento
 GROUP BY a.idMusico, a.nome;
 
-
--- Sinfonias por compositor
-SELECT compositor, COUNT(*) as total_sinfonias,
-       GROUP_CONCAT(nome) as sinfonias
-FROM Sinfonias 
-GROUP BY compositor;
+-- Sinfonias por compositor com informações das orquestras que as executam
+SELECT 
+    s.compositor,
+    COUNT(DISTINCT s.idSinfonia) as total_sinfonias,
+    COUNT(DISTINCT e.idOrquestra) as total_orquestras_executoras,
+    GROUP_CONCAT(DISTINCT s.nome ORDER BY s.nome SEPARATOR ', ') as sinfonias,
+    GROUP_CONCAT(DISTINCT o.nome ORDER BY o.nome SEPARATOR ', ') as orquestras_executoras,
+    GROUP_CONCAT(DISTINCT o.cidade ORDER BY o.cidade SEPARATOR ', ') as cidades_apresentacao
+FROM Sinfonias s
+LEFT JOIN Executam e ON s.idSinfonia = e.idSinfonia
+LEFT JOIN Orquestras o ON e.idOrquestra = o.idOrquestra
+GROUP BY s.compositor
+ORDER BY total_sinfonias DESC, s.compositor;
 
 -- Instrumentos mais utilizados
 SELECT i.nomeInstrumento, COUNT(at.idMusico) AS total_uso
