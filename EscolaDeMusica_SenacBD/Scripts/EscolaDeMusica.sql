@@ -24,9 +24,9 @@ CREATE TABLE Orquestras (
 );
 
 
--- Tabela Artistas (renomeada de Musicos)
-CREATE TABLE Artistas (
-    idMusico INT AUTO_INCREMENT PRIMARY KEY,
+-- Tabela Musicos 
+CREATE TABLE Musicos (
+    idMusicos INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     identidade VARCHAR(20) UNIQUE,
     nacionalidade VARCHAR(50) NOT NULL,
@@ -53,25 +53,27 @@ CREATE TABLE Instrumentos (
 CREATE TABLE FuncoesDosMusicos (
     idFuncao INT AUTO_INCREMENT PRIMARY KEY,
     nomeFuncao ENUM(
-        'maestro',
-        'flautista',
-        'violinista',
-        'violista',
-        'violoncelista',
-        'contrabaixista',
-        'trompista',
-        'trompetista',
-        'trombonista',
-        'tubista',
-        'harpaista',
-        'pianista',
-        'saxofonista',
-        'oboísta',
-        'clarinetista',
-        'guitarrista',
-        'baterista',
-        'tecladista',
-        'fagotista'
+	'maestro',
+    'flautista',
+    'oboísta',
+    'clarinetista',
+    'violinista',
+    'violista',
+    'violoncelista',
+    'contrabaixista',
+    'trompista',
+    'trompetista',
+    'trombonista',
+    'tubista',
+    'harpaista',
+    'pianista',
+    'saxofonista',
+    'guitarrista',
+    'baterista',
+    'tecladista',
+    'fagotista',
+    'cavaquinista',
+    'bandolinista'
     ) NOT NULL UNIQUE
 );
 
@@ -86,10 +88,10 @@ CREATE TABLE Sinfonias (
 
 -- Tabela de relacionamento: Tocam (Artista-Instrumento)
 CREATE TABLE Tocam (
-    idMusico INT,
+    idMusicos INT,
     idInstrumento INT,
-    PRIMARY KEY(idMusico, idInstrumento),
-    FOREIGN KEY(idMusico) REFERENCES Artistas (idMusico) ON DELETE CASCADE,
+    PRIMARY KEY(idMusicos, idInstrumento),
+    FOREIGN KEY(idMusicos) REFERENCES Musicos (idMusicos) ON DELETE CASCADE,
     FOREIGN KEY(idInstrumento) REFERENCES Instrumentos (idInstrumento) ON DELETE CASCADE
 );
 
@@ -104,24 +106,24 @@ CREATE TABLE Executam (
 
 -- Tabela de relacionamento: Desempenham (Artista-Função)
 CREATE TABLE Desempenham (
-    idMusico INT,
+    idMusicos INT,
     idFuncao INT,
     dataAssumiu DATE,
     dataFim DATE,
-    PRIMARY KEY(idMusico, idFuncao),
-    FOREIGN KEY(idMusico) REFERENCES Artistas (idMusico) ON DELETE CASCADE,
+    PRIMARY KEY(idMusicos, idFuncao),
+    FOREIGN KEY(idMusicos) REFERENCES Musicos (idMusicos) ON DELETE CASCADE,
     FOREIGN KEY(idFuncao) REFERENCES FuncoesDosMusicos (idFuncao) ON DELETE CASCADE
 );
 
 -- Tabela de relacionamento: Atuam (Artista-Sinfonia-Função-Instrumento)
 CREATE TABLE Atuam (
-    idMusico INT,
+    idMusicos INT,
     idSinfonia INT,
     idFuncao INT,
     idInstrumento INT,
     dataInicio DATE NOT NULL,
-    PRIMARY KEY(idMusico, idSinfonia, idFuncao),
-    FOREIGN KEY(idMusico) REFERENCES Artistas (idMusico) ON DELETE CASCADE,
+    PRIMARY KEY(idMusicos, idSinfonia, idFuncao),
+    FOREIGN KEY(idMusicos) REFERENCES Musicos (idMusicos) ON DELETE CASCADE,
     FOREIGN KEY(idSinfonia) REFERENCES Sinfonias (idSinfonia) ON DELETE CASCADE,
     FOREIGN KEY(idFuncao) REFERENCES FuncoesDosMusicos (idFuncao) ON DELETE CASCADE,
     FOREIGN KEY(idInstrumento) REFERENCES Instrumentos (idInstrumento) ON DELETE CASCADE

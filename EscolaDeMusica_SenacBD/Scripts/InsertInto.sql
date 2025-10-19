@@ -28,7 +28,7 @@ INSERT INTO Orquestras (nome, cidade, pais, dataCriacao, telefone) VALUES
 ('Orquestra Filarmônica de Manaus', 'Manaus', 'Brasil', '1999-10-22', '(92) 4123-4568');
 
 
-select * from Instrumentos;
+
 -- Inserir Instrumentos
 INSERT INTO Instrumentos (nomeInstrumento) VALUES
 ('flauta'),
@@ -52,10 +52,10 @@ INSERT INTO Instrumentos (nomeInstrumento) VALUES
 ('cavaquinho'),
 ('bandolim');
 
-select * from Artistas;
+
 
 -- Inserir Artistas
-INSERT INTO Artistas (nome, identidade, nacionalidade, dataNasc, email, telefone, endereco, salario, status, idOrquestra) VALUES
+INSERT INTO Musicos (nome, identidade, nacionalidade, dataNasc, email, telefone, endereco, salario, status, idOrquestra) VALUES
 ('Roberto Silva', '147258369', 'Brasil', '1984-02-28', 'roberto.silva@email.com', '(61) 99999-0011', 'Rua K, 123', 5000.00, 'ativo', 6),
 ('Patricia Oliveira', '258369147', 'Brasil', '1989-09-14', 'patricia.oliveira@email.com', '(61) 99999-0012', 'Rua L, 234', 4500.00, 'ativo', 6),
 ('Marcos Antonio', '369147258', 'Brasil', '1986-12-03', 'marcos.antonio@email.com', '(85) 99999-0013', 'Rua M, 345', 5500.00, 'ativo', 7),
@@ -79,7 +79,7 @@ INSERT INTO Artistas (nome, identidade, nacionalidade, dataNasc, email, telefone
 ('Leonardo Carvalho', '147369258', 'Brasil', '1983-03-19', 'leonardo.carvalho@email.com', '(71) 99999-0031', 'Rua EE, 123', 5000.00, 'ativo', 16),
 ('Mariana Ribeiro', '258147369', 'Brasil', '1996-08-13', 'mariana.ribeiro@email.com', '(71) 99999-0032', 'Rua FF, 234', 4400.00, 'ativo', 16);
 
-select * from FuncoesDosMusicos;
+
 -- Inserir Funções dos Músicos
 INSERT INTO FuncoesDosMusicos (nomeFuncao) VALUES
 ('maestro'),
@@ -100,11 +100,13 @@ INSERT INTO FuncoesDosMusicos (nomeFuncao) VALUES
 ('guitarrista'),
 ('baterista'),
 ('tecladista'),
-('fagotista');
+('fagotista'),
+('cavaquinista'),
+('bandolinista');
 
-select * from Desempenham;
+
 -- Inserir relacionamento Desempenham (Artista-Função)
-INSERT INTO Desempenham (idMusico, idFuncao, dataAssumiu) VALUES
+INSERT INTO Desempenham (idMusicos, idFuncao, dataAssumiu) VALUES
 (1, 3, '2020-01-15'),  -- Roberto como violinista
 (1, 12, '2021-06-01'), -- Roberto como pianista
 (2, 3, '2019-03-10'),  -- Patricia como violinista
@@ -152,9 +154,9 @@ INSERT INTO Sinfonias (nome, compositor, dataComposicao, generoMusical) VALUES
 ('Sinfonia nº 7', 'Beethoven', '1812-12-08', 'Clássico'),
 ('Sinfonia nº 4', 'Tchaikovsky', '1878-02-22', 'Romântico');
 
-SELECT idMusico, nome FROM Artistas;
+
 -- Inserir relacionamento Tocam (Artista-Instrumento)
-INSERT INTO Tocam (idMusico, idInstrumento) VALUES
+INSERT INTO Tocam (idMusicos, idInstrumento) VALUES
 (1, 4), -- João toca violino
 (1, 13), -- João também toca piano
 (2, 4), -- Maria toca violino
@@ -193,29 +195,27 @@ INSERT INTO Executam (idSinfonia, idOrquestra) VALUES
 
 
 -- Inserir relacionamento Atuam (Artista-Sinfonia-Função-Instrumento)
-INSERT INTO Atuam (idMusico, idSinfonia, idFuncao, idInstrumento, dataInicio) VALUES
-(1, 1, 3, 4, '2023-01-15'),   -- Roberto, Sinfonia 1, violinista, violino
-(1, 2, 12, 13, '2023-02-20'), -- Roberto, Sinfonia 2, pianista, piano
-(2, 1, 3, 4, '2023-01-15'),   -- Patricia, Sinfonia 1, violinista, violino
-(3, 3, 4, 5, '2023-03-10'),   -- Marcos, Sinfonia 3, violista, viola
-(4, 4, 5, 6, '2023-04-05'),   -- Julia, Sinfonia 4, violoncelista, violoncelo
-(5, 5, 6, 7, '2023-05-12'),   -- Diego, Sinfonia 5, contrabaixista, contrabaixo
-(6, 6, 2, 1, '2023-06-08'),   -- Larissa, Sinfonia 6, flautista, flauta
-(7, 7, 8, 9, '2023-07-15'),   -- Gabriel, Sinfonia 7, trompetista, trompete
-(8, 8, 11, 12, '2023-08-20'), -- Amanda, Sinfonia 8, harpaista, harpa
-(9, 9, 7, 8, '2023-09-25'),   -- Bruno, Sinfonia 9, trompista, trompa
-(10, 10, 1, 1, '2023-10-01'), -- Carla, Sinfonia 10, maestro, flauta
-(11, 11, 14, 2, '2023-11-10'),-- Felipe, Sinfonia 11, oboísta, oboé
-(12, 12, 15, 3, '2023-12-05'),-- Renata, Sinfonia 12, clarinetista, clarinete
-(13, 13, 13, 14, '2024-01-15'),-- Tiago, Sinfonia 13, saxofonista, saxofone
-(14, 14, 10, 11, '2024-02-20'),-- Fernanda, Sinfonia 14, tubista, tuba
-(15, 15, 16, 15, '2024-03-18'),-- Ricardo, Sinfonia 15, guitarrista, guitarra
-(16, 16, 17, 16, '2024-04-22'),-- Aline, Sinfonia 16, baterista, bateria
-(17, 17, 18, 17, '2024-05-30'),-- Eduardo, Sinfonia 17, tecladista, teclado
-(18, 18, 19, 18, '2024-06-12'),-- Camila, Sinfonia 18, fagotista, fagote
-(19, 19, 20, 19, '2024-07-08'),-- André, Sinfonia 19, cavaquinista, cavaquinho
-(19, 19, 9, 10, '2024-08-14'); -- Beatriz, Sinfonia 20, trombonista, trombone
+INSERT INTO Atuam (idMusicos, idSinfonia, idFuncao, idInstrumento, dataInicio) VALUES
+(1, 1, 5, 4, '2023-01-15'),   -- Violino - Violinista
+(2, 1, 6, 5, '2023-01-15'),   -- Viola - Violista
+(3, 2, 7, 6, '2023-02-10'),   -- Violoncelo - Violoncelista
+(4, 2, 8, 7, '2023-02-20'),   -- Contrabaixo - Contrabaixista
+(5, 3, 2, 1, '2023-03-05'),   -- Flauta - Flautista
+(6, 3, 3, 2, '2023-03-12'),   -- Oboé - Oboísta
+(7, 4, 4, 3, '2023-04-01'),   -- Clarinete - Clarinetista
+(8, 4, 9, 8, '2023-04-15'),   -- Trompa - Trompista
+(9, 5, 10, 9, '2023-05-02'),  -- Trompete - Trompetista
+(10, 5, 11, 10, '2023-05-20'),-- Trombone - Trombonista
+(11, 6, 12, 11, '2023-06-08'),-- Tuba - Tubista
+(12, 6, 13, 12, '2023-06-22'),-- Harpa - Harpaista
+(13, 7, 14, 13, '2023-07-10'),-- Piano - Pianista
+(14, 7, 15, 14, '2023-07-18'),-- Saxofone - Saxofonista
+(15, 8, 16, 15, '2023-08-05'),-- Guitarra - Guitarrista
+(16, 8, 17, 16, '2023-08-20'),-- Bateria - Baterista
+(17, 9, 18, 17, '2023-09-12'),-- Teclado - Tecladista
+(18, 9, 19, 18, '2023-09-25'),-- Fagote - Fagotista
+(19, 10, 20, 19, '2023-10-10'),-- Cavaquinho - Cavaquinista
+(20, 10, 21, 20, '2023-10-20');-- Bandolim - Bandolinista
 
-
-
-
+INSERT INTO Atuam (idMusicos, idSinfonia, idFuncao, idInstrumento, dataInicio)
+VALUES (10, 1, 1, NULL, '2023-01-01');

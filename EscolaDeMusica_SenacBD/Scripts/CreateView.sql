@@ -3,17 +3,17 @@
 -- ========================================
 
 -- View: Artistas com suas orquestras
-CREATE VIEW vw_artistas_orquestras AS
-SELECT a.idMusico, a.nome AS nomeArtista, a.email, 
+CREATE VIEW vw_musicos_orquestras AS
+SELECT m.idMusicos, m.nome AS "Nome Musicos", m.email AS Email, 
        o.nome AS nomeOrquestra, o.cidade, o.pais
-FROM Artistas a
-LEFT JOIN Orquestras o ON a.idOrquestra = o.idOrquestra;
+FROM Musicos m
+LEFT JOIN Orquestras o ON m.idOrquestra = o.idOrquestra;
 
--- View: Artistas e instrumentos que sabem tocar
-CREATE VIEW vw_artistas_instrumentos AS
-SELECT a.nome AS artista, i.nomeInstrumento
-FROM Artistas a
-JOIN Tocam t ON a.idMusico = t.idMusico
+-- View: Músicos e instrumentos que sabem tocar
+CREATE VIEW vw_musicos_instrumentos AS
+SELECT m.nome AS Musicos, i.nomeInstrumento AS "Nome Instrumento"
+FROM Musicos m
+JOIN Tocam t ON m.idMusicos = t.idMusicos
 JOIN Instrumentos i ON t.idInstrumento = i.idInstrumento;
 
 -- View: Sinfonias com orquestras que as executam
@@ -24,31 +24,32 @@ FROM Sinfonias s
 JOIN Executam e ON s.idSinfonia = e.idSinfonia
 JOIN Orquestras o ON e.idOrquestra = o.idOrquestra;
 
--- View: Atuações completas (artista, sinfonia, função, instrumento)
+-- View: Atuações completas (músicos, sinfonia, função, instrumento)
 CREATE VIEW vw_atuacoes_completas AS
-SELECT a.nome AS artista, s.nome AS sinfonia, s.compositor,
-       f.nomeFuncao, i.nomeInstrumento, at.dataInicio,
-       o.nome AS orquestra
+SELECT m.nome AS Musicos, s.nome AS Sinfonia, s.Compositor,
+       f.nomeFuncao, i.nomeInstrumento, FORMAT(at.dataInicio, '%d/%m/%Y'),
+       o.nome AS Orquestra
 FROM Atuam at
-JOIN Artistas a ON at.idMusico = a.idMusico
+JOIN Musicos m ON at.idMusicos = m.idMusicos
 JOIN Sinfonias s ON at.idSinfonia = s.idSinfonia
 JOIN FuncoesDosMusicos f ON at.idFuncao = f.idFuncao
 JOIN Instrumentos i ON at.idInstrumento = i.idInstrumento
-JOIN Orquestras o ON a.idOrquestra = o.idOrquestra;
+JOIN Orquestras o ON m.idOrquestra = o.idOrquestra;
 
 -- View: Estatísticas por orquestra
 CREATE VIEW vw_estatisticas_orquestra AS
-SELECT o.nome AS orquestra, 
-       COUNT(DISTINCT a.idMusico) AS total_artistas,
-       COUNT(DISTINCT e.idSinfonia) AS total_sinfonias,
-       o.cidade, o.pais
+SELECT o.nome AS Orquestra, 
+       COUNT(DISTINCT m.idMusicos) AS TotalMusicos,
+       COUNT(DISTINCT e.idSinfonia) AS "Total Sinfonias",
+       o.cidade AS Cidade, o.pais AS País
 FROM Orquestras o
-LEFT JOIN Artistas a ON o.idOrquestra = a.idOrquestra
+LEFT JOIN Musicos m ON o.idOrquestra = m.idOrquestra
 LEFT JOIN Executam e ON o.idOrquestra = e.idOrquestra
-GROUP BY o.idOrquestra;
+GROUP BY o.idOrquestra
+ORDER BY TotalMusicos;
 
--- Artistas por faixa salarial
-CREATE VIEW vw_artistas_faixa_salarial AS
+-- Músicos por faixa salarial
+CREATE VIEW vw_musicos_faixa_salarial AS
 SELECT 
     CASE 
         WHEN salario < 4000 THEN 'Baixo'
@@ -56,9 +57,9 @@ SELECT
         WHEN salario > 6000 THEN 'Alto'
         ELSE 'Não informado'
     END AS faixa_salarial,
-    COUNT(*) as quantidade_artistas,
-    AVG(salario) as salario_medio
-FROM Artistas 
+    COUNT(*) as "Quantidade Músicos",
+    CONCAT("R$ ",FORMAT(AVG(salario),2,'de_DE')) as "Salário Médio"
+FROM Musicos
 WHERE salario IS NOT NULL
 GROUP BY faixa_salarial;
 
@@ -66,9 +67,9 @@ GROUP BY faixa_salarial;
 CREATE VIEW vw_instrumentos_categoria_preco AS
 SELECT categoria, 
        COUNT(*) as total_instrumentos,
-       AVG(preco) as preco_medio,
-       MIN(preco) as preco_minimo,
-       MAX(preco) as preco_maximo
+       CONCAT("R$ ",FORMAT(AVG(preco),2,'de_DE')) as preco_medio,
+       CONCAT("R$ ",FORMAT(MIN(preco),2,'de_DE')) as preco_minimo,
+       CONCAT("R$ ",FORMAT(MAX(preco),2,'de_DE')) as preco_maximo
 FROM Instrumentos 
 WHERE categoria IS NOT NULL
 GROUP BY categoria;
@@ -77,7 +78,7 @@ GROUP BY categoria;
 CREATE VIEW vw_sinfonias_dificuldade AS
 SELECT dificuldade,
        COUNT(*) as total_sinfonias,
-       AVG(TIME_TO_SEC(duracao)/60) as duracao_media_minutos
+       FORMAT(AVG(TIME_TO_SEC(duracao)/60),2) as duracao_media_minutos
 FROM Sinfonias 
 WHERE dificuldade IS NOT NULL
 GROUP BY dificuldade
@@ -106,18 +107,18 @@ SELECT status,
 FROM Orquestras 
 GROUP BY status, regiao;
 
--- Performance dos artistas
+-- Performance dos músicos
 CREATE VIEW vw_performance_artistas AS
-SELECT a.nome as artista,
-       COUNT(DISTINCT at.idSinfonia) as total_sinfonias,
-       COUNT(DISTINCT t.idInstrumento) as total_instrumentos,
-       COUNT(DISTINCT d.idFuncao) as total_funcoes,
-       a.salario,
-       o.nome as orquestra
-FROM Artistas a
-LEFT JOIN Atuam at ON a.idMusico = at.idMusico
-LEFT JOIN Tocam t ON a.idMusico = t.idMusico
-LEFT JOIN Desempenham d ON a.idMusico = d.idMusico
-LEFT JOIN Orquestras o ON a.idOrquestra = o.idOrquestra
-GROUP BY a.idMusico;
+SELECT m.nome as Músico,
+       COUNT(DISTINCT at.idSinfonia) as "Total Sinfonia",
+       COUNT(DISTINCT t.idInstrumento) as "Total Instrumentos",
+       COUNT(DISTINCT d.idFuncao) as "Total Funções",
+       CONCAT("R$ ",FORMAT(m.salario,2,'de_DE')) AS Salário,
+       o.nome as Orquestra
+FROM Musicos m
+LEFT JOIN Atuam at ON m.idMusicos = at.idMusicos
+LEFT JOIN Tocam t ON m.idMusicos = t.idMusicos
+LEFT JOIN Desempenham d ON m.idMusicos = d.idMusicos
+LEFT JOIN Orquestras o ON m.idOrquestra = o.idOrquestra
+GROUP BY m.idMusicos;
 

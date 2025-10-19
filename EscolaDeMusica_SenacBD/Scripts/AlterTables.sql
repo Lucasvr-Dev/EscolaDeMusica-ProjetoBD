@@ -7,10 +7,10 @@ USE EscolaDeMusica;
 -- Adicionar colunas
 ALTER TABLE Orquestras ADD COLUMN email VARCHAR(100);
 ALTER TABLE Orquestras ADD COLUMN status ENUM('ativa', 'inativa', 'suspenso') DEFAULT 'ativa';
-ALTER TABLE Artistas ADD COLUMN telefone VARCHAR(20);
-ALTER TABLE Artistas ADD COLUMN endereco VARCHAR(200);
-ALTER TABLE Artistas ADD COLUMN salario DECIMAL(10,2);
-ALTER TABLE Artistas ADD COLUMN status ENUM('ativo', 'inativo', 'licenca') DEFAULT 'ativo';
+ALTER TABLE Musicos ADD COLUMN telefone VARCHAR(20);
+ALTER TABLE Musicos ADD COLUMN endereco VARCHAR(200);
+ALTER TABLE Musicos ADD COLUMN salario DECIMAL(10,2);
+ALTER TABLE Musicos ADD COLUMN status ENUM('ativo', 'inativo', 'licenca') DEFAULT 'ativo';
 ALTER TABLE Instrumentos ADD COLUMN categoria VARCHAR(50);
 ALTER TABLE Instrumentos ADD COLUMN preco DECIMAL(10,2);
 ALTER TABLE FuncoesDosMusicos ADD COLUMN salarioBase DECIMAL(10,2);
@@ -25,7 +25,7 @@ ALTER TABLE Atuam ADD COLUMN avaliacaoDesempenho ENUM('ruim', 'regular', 'bom', 
 
 -- Modificar colunas existentes
 ALTER TABLE Orquestras MODIFY COLUMN nome VARCHAR(150) NOT NULL;
-ALTER TABLE Artistas MODIFY COLUMN nome VARCHAR(100) NOT NULL;
+ALTER TABLE Musicos MODIFY COLUMN nome VARCHAR(100) NOT NULL;
 ALTER TABLE Sinfonias MODIFY COLUMN nome VARCHAR(100) NOT NULL;
 
 
