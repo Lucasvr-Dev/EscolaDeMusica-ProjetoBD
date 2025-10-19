@@ -13,7 +13,6 @@ JOIN Tocam t ON m.idMusicos = t.idMusicos
 JOIN Instrumentos i ON t.idInstrumento = i.idInstrumento
 GROUP BY m.idMusicos, m.nome;
 
-<<<<<<< HEAD
 
 -- Sinfonias por compositor
 SELECT compositor AS Compositor, COUNT(*) as "Total Sinfonias",
@@ -21,7 +20,7 @@ SELECT compositor AS Compositor, COUNT(*) as "Total Sinfonias",
 FROM Sinfonias 
 GROUP BY Compositor;
 
-=======
+
 -- Sinfonias por compositor com informações das orquestras que as executam
 SELECT 
     s.compositor,
@@ -35,7 +34,7 @@ LEFT JOIN Executam e ON s.idSinfonia = e.idSinfonia
 LEFT JOIN Orquestras o ON e.idOrquestra = o.idOrquestra
 GROUP BY s.compositor
 ORDER BY total_sinfonias DESC, s.compositor;
->>>>>>> cf096b62b90b00a8168af0eadd99dbcf1368c2a3
+
 
 -- Instrumentos mais utilizados
 SELECT i.nomeInstrumento, COUNT(at.idMusicos) AS total_uso
@@ -63,7 +62,6 @@ JOIN Musicos m ON at.idMusicos = m.idMusicos
 JOIN Sinfonias s ON at.idSinfonia = s.idSinfonia
 JOIN FuncoesDosMusicos f ON at.idFuncao = f.idFuncao
 WHERE f.nomeFuncao = 'maestro'
-<<<<<<< HEAD
 ORDER BY DataInicio;
 
 
@@ -187,8 +185,3 @@ ORDER BY TotalApresentacoes DESC, FIELD(s.dificuldade, 'muito_alta','alta','medi
 
 
 
-
-
-=======
-ORDER BY at.dataInicio;
->>>>>>> cf096b62b90b00a8168af0eadd99dbcf1368c2a3
